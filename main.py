@@ -15,12 +15,7 @@ def compute_grad_with_respect_to_B(y):
 
 def Perceptron_model(weights, point):
     z = weights[0] + (point[0] * weights[1]) + (point[1] * weights[2])
-    if z >= 0:
-        y_hat = 1
-    else:
-        y_hat = -1
-
-    return y_hat
+    return 1 if z >= 0 else -1
 
 
 def plot_data(X, AvgError, y_hat_array, weights):
@@ -44,12 +39,15 @@ if __name__ == '__main__':
     # ======== HYPER PARAMETERS ======== #
     n_features = 2
     learning_rate = 1
-    epoch = 1000
+    epoch = 100
+    # ================================== #
 
+    respect_to_list =  np.array([compute_grad_with_respect_to_M, compute_grad_with_respect_to_B])
     X, y = MakeData.generate_data("make_blobs", n_features=n_features, n_samples=500, random_state=0, n_informative=2)
     y = np.where(y == 0, -1, y)
 
-    weights, y_hat_array, AvgError = SGD.fit(learning_rate, X, n_features, epoch, compute_grad_with_respect_to_M,
+    weights, y_hat_array, AvgError= SGD.fit(learning_rate, X, n_features, epoch, compute_grad_with_respect_to_M,
                                              compute_grad_with_respect_to_B, Perceptron_model, y)
+    print(f"weights:{weights}, AvgError:{AvgError}, y_hat_array:{y_hat_array} ")
 
     plot_data(X, AvgError, y_hat_array, weights)

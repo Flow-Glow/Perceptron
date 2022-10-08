@@ -1,9 +1,10 @@
 import numpy as np
-import matplotlib.pyplot as plt
 
 
-def fit(Learning_rate, X, n_features, epoch, respect_to_m, respect_to_b, model, y):
+# respect_to_list = [func_1,func2,...]
+def fit(Learning_rate, X, n_features, epoch, respect_to_m, respect_to_b, model, y) -> [np.ndarray, np.ndarray, float]:
     """
+    :param y: the true labels
     :param Learning_rate: The learning rate of the model
     :param X: The training data
     :param n_features: number of weights in the model
@@ -11,16 +12,18 @@ def fit(Learning_rate, X, n_features, epoch, respect_to_m, respect_to_b, model, 
     :param respect_to_m: The function that compute the gradient with respect to m
     :param respect_to_b: The function that compute the gradient with respect to b
     :param model: The model that we want to train on
-    :return weights: The weights of the model
-    :return AvgError: the average error of the training process
-    :return y_hat_array: The y-hat of the training process
+    :return:
+    Weights: The weights of the model
+    Y_hat_array: The y-hat of the training process
+    AvgError: the average error of the training process
+
     """
     y_hat_array = np.zeros(len(y))
     err_array = np.zeros(epoch)
     weights = np.random.random(n_features + 1)
-
     for e in range(epoch):
         err_count = 0
+
         for idx, x in enumerate(X):
             y_hat = model(weights, x)
             y_hat_array[idx] = y_hat
