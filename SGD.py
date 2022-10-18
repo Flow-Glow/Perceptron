@@ -2,15 +2,14 @@ import numpy as np
 
 
 # respect_to_list = [func_1,func2,...]
-def fit(Learning_rate, X, n_features, epoch, respect_to_m, respect_to_b, model, y) -> [np.ndarray, np.ndarray, float]:
+def fit(Learning_rate, X, n_features, epoch, respect_to_w, model, y) -> [np.ndarray, np.ndarray, float]:
     """
     :param y: the true labels
     :param Learning_rate: The learning rate of the model
     :param X: The training data
     :param n_features: number of weights in the model
     :param epoch: number of epochs in the training
-    :param respect_to_m: The function that compute the gradient with respect to m
-    :param respect_to_b: The function that compute the gradient with respect to b
+    :param respect_to_w: The function that compute the gradient with respect to w
     :param model: The model that we want to train on
     :return:
     Weights: The weights of the model
@@ -29,9 +28,11 @@ def fit(Learning_rate, X, n_features, epoch, respect_to_m, respect_to_b, model, 
             y_hat_array[idx] = y_hat
             if y_hat != y[idx]:
                 err_count += 1
-                weights[0] = weights[0] - (Learning_rate * respect_to_b(y[idx]))
-                weights[1] = weights[1] - (Learning_rate * respect_to_m(x[0], y[idx]))
-                weights[2] = weights[2] - (Learning_rate * respect_to_m(x[1], y[idx]))
+                for w in range(len(weights)):
+                    weights[w] = weights[w] - (Learning_rate * respect_to_w(y[idx], x[w]))
+                # weights[0] = weights[0] - (Learning_rate * respect_to_w(y[idx], 1))
+                # weights[1] = weights[1] - (Learning_rate * respect_to_w(y[idx], x[0]))
+                # weights[2] = weights[2] - (Learning_rate * respect_to_w(y[idx], x[1]))
         err_array[e] = err_count / len(y)
     AvgError = np.mean(err_array)
 
