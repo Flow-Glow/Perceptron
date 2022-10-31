@@ -23,7 +23,6 @@ def plot_data(X, AvgError, y_hat_array, weights):
     intercept = -weights[0] / weights[2]
     yy = intercept + (slope * xx)
     plt.plot(xx, yy, c='r')
-
     plt.xlabel('x')
     plt.ylabel('y')
     plt.title(f'AvgError:{AvgError}')
@@ -45,7 +44,6 @@ if __name__ == '__main__':
     ones_array = np.ones((X.shape[0], 1))
     # add a column of 1s to the dataset
     X = np.column_stack((ones_array, X))
-    print(X)
     weights, y_hat_array, AvgError = SGD.fit(learning_rate, X, n_features, epoch, compute_grad_with_respect_to_W,
                                              Perceptron_model, y)
     print(f"weights:{weights}, AvgError:{AvgError}, y_hat_array:{y_hat_array} ")
