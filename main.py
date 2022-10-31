@@ -43,8 +43,8 @@ if __name__ == '__main__':
     X, y = MakeData.generate_data("make_blobs", n_features=n_features, n_samples=500, random_state=0, n_informative=2)
     y = np.where(y == 0, -1, y)
     ones_array = np.ones((X.shape[0], 1))
-    #add a column of 1s to the dataset
-    X=np.column_stack((ones_array, X))
+    # add a column of 1s to the dataset
+    X = np.column_stack((ones_array, X))
     print(X)
     weights, y_hat_array, AvgError = SGD.fit(learning_rate, X, n_features, epoch, compute_grad_with_respect_to_W,
                                              Perceptron_model, y)
