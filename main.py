@@ -9,8 +9,10 @@ def compute_grad_with_respect_to_W(x, y):
     return -x * y
 
 
-def Perceptron_model(weights, point):
-    z = (weights[0]*point[0]) + (point[1] * weights[1]) + (point[2] * weights[2])
+def Perceptron_model(weights, x):
+    # z = (weights[0]*x[0]) + (weights[1] * x[1]) + (weights[2] * x[2])
+    # z = np.sum(weights.T*x)
+    z = np.dot(weights, x)
     return 1 if z >= 0 else -1
 
 
